@@ -1,3 +1,4 @@
+const {validateUser} = require('../validation/user.validation')
 /**
  * @file Product service
  * @summary Product realated services
@@ -11,7 +12,7 @@ const generateToken = require('../utils/generateToken');
  * @param {Array} imageUrl
  * @returns {Promise<Object>}
  */
-exports.registerUser = async (UserData) => {
+exports.registerUser = async (req, res, UserData) => {
 	//validation
 	const { error } = validateUser(req.body);
 	if (error)

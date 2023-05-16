@@ -1,7 +1,7 @@
 const express = require("express");
 const { registerUser, authUser, getUserById, updateUser,deleteUser } = require("../controllers/user.controller.js");
 const router = express.Router();
-import { protectUser } from "../middleware/authUser.js";
+const {protectUser} = require("../middleware/authUserMiddleware.js");
 
 //Routes for User Account Operations
 router.route("/register").post(registerUser);

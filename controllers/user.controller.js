@@ -1,10 +1,10 @@
 const UserService = require('../services/user.services');
-/**
- * User application programing interface
- * @param {Request} req - http request
- * @param {Response} res - http response
- * @returns {Response}
- **/
+// /**
+//  * User application programing interface
+//  * @param {Request} req - http request
+//  * @param {Response} res - http response
+//  * @returns {Response}
+//  **/
 exports.registerUser = async (req, res, next) => {
   try {
     const User = await UserService.registerUser(req.body);
