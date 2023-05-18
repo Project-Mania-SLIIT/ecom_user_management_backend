@@ -12,11 +12,11 @@ const generateToken = require('../utils/generateToken');
  * @param {Array} imageUrl
  * @returns {Promise<Object>}
  */
-exports.registerUser = async (req, res, UserData) => {
+exports.registerUser = async (UserData) => {
 	//validation
-	const { error } = validateUser(req.body);
-	if (error)
-	   return res.status(400).send({ message: error.details[0].message });
+	// const { error } = validateUser(req.body);
+	// if (error)
+	//    return res.status(400).send({ message: error.details[0].message });
 	const isUser = await User.findOne({ email: UserData.email });
 	if (isUser) {
 		throw new Error("Profile Exists !");
