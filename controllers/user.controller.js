@@ -1,13 +1,14 @@
 const UserService = require('../services/user.services');
-// /**
-//  * User application programing interface
-//  * @param {Request} req - http request
-//  * @param {Response} res - http response
-//  * @returns {Response}
-//  **/
+ /**
+ * User application programing interface
+ * @param {Request} req - http request
+ * @param {Response} res - http response
+ * @returns {Response}
+ **/
 exports.registerUser = async (req, res, next) => {
+  console.log(req.body.formData)
   try {
-    const User = await UserService.registerUser(req.body);
+    const User = await UserService.registerUser(req.body.formData);
     res.status(201).json(User);
   } catch (err) {
     next(err);
@@ -20,8 +21,9 @@ exports.registerUser = async (req, res, next) => {
  * @returns {Response}
  **/
 exports.authUser = async (req, res, next) => {
+  const formData = req.body.formData;
   try {
-    const Users = await UserService.authUser(req.body);
+    const Users = await UserService.authUser(formData);
     res.json(Users);
   } catch (err) {
     next(err);
