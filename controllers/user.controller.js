@@ -7,8 +7,14 @@ const UserService = require('../services/user.services');
  **/
 exports.registerUser = async (req, res, next) => {
   try {
-    const User = await UserService.registerUser(req.body);
-    res.status(201).json(User);
+    const Result = await UserService.registerUser(req.body.formData);
+    if(Result.status === 200){
+      console.log(Result);  
+      res.status(200).json(Result);
+    }else{
+      console.log(Result);
+      res.status(400).json(Result.message);
+    }
   } catch (err) {
     next(err);
   }
@@ -21,8 +27,14 @@ exports.registerUser = async (req, res, next) => {
  **/
 exports.authUser = async (req, res, next) => {
   try {
-    const Users = await UserService.authUser(req.body);
-    res.json(Users);
+    const Result = await UserService.authUser(req.body.formData);
+    if(Result.status === 200){
+      console.log(Result);  
+      res.status(200).json(Result);
+    }else{
+      console.log(Result);
+      res.status(400).json(Result.message);
+    }
   } catch (err) {
     next(err);
   }

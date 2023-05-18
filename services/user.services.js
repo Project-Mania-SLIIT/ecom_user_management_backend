@@ -5,20 +5,28 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const generateToken = require('../utils/generateToken');
+const { validateUser } = require('../validation/user.validation');
 /**
  * add User service
  * @param {Object} UserData
  * @param {Array} imageUrl
  * @returns {Promise<Object>}
  */
-exports.registerUser = async (UserData) => {
+exports.registerUser = async (UserData) => { 
+	console.log(UserData)
 	//validation
-	const { error } = validateUser(req.body);
+	const { error } = validateUser(UserData);
 	if (error)
-	   return res.status(400).send({ message: error.details[0].message });
+	return {
+		message: error.details[0].message,
+		status: 400,
+	}
 	const isUser = await User.findOne({ email: UserData.email });
 	if (isUser) {
-		throw new Error("Profile Exists !");
+		return {
+			message: "Already Registered !",
+			status: 400,
+		}
 	}
     
 	const newUser = new User(UserData);
@@ -33,6 +41,7 @@ exports.registerUser = async (UserData) => {
 		return {
             user : newUser,
 			token: generateToken(User._id),
+			status: 200,
 		};
 	} else {
 		throw new Error("Registration Failed !");
@@ -48,17 +57,24 @@ exports.authUser = async (userData) => {
 	const user = await User.findOne({ email });
 
 	if (!user) {
-		throw new Error("No any registered account for this email");
+		return {
+			message: "No User Registered with this Email !",
+			status: 400,
+		}
 	}
 
 	const isMatch = await bcrypt.compare(password, user.password);
 
 	if (!isMatch) {
-		throw new Error("Invalid Password");
+		return {
+			message: "Invalid Password !",
+			status: 400,
+		}
 	} else {
 		return {
 			user:user,
 			token: generateToken(user._id),
+			status: 200,
 		};
 	}
 };
