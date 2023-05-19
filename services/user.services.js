@@ -1,4 +1,3 @@
-const {validateUser} = require('../validation/user.validation')
 /**
  * @file Product service
  * @summary Product realated services
