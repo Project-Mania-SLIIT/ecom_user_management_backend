@@ -54,6 +54,20 @@ exports.getUserById = async (req, res, next) => {
   }
 };
 /**
+ * Get one User by id application programing interface
+ * @param {Request} req - http request
+ * @param {Response} res - http response
+ * @returns {Response}
+ **/
+exports.getAllUser = async (req, res, next) => {
+  try {
+    const User = await UserService.getAllUser();
+    res.json(User);
+  } catch (err) {
+    next(err);
+  }
+};
+/**
  * Update User application programing interface
  * @param {Request} req - http request
  * @param {Response} res - http response
@@ -62,6 +76,20 @@ exports.getUserById = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const User = await UserService.updateUser(req.params.id, req.body);
+    res.json(User);
+  } catch (err) {
+    next(err);
+  }
+};
+/**
+ * Update User application programing interface
+ * @param {Request} req - http request
+ * @param {Response} res - http response
+ * @returns {Response}
+ **/
+exports.updateUserType = async (req, res, next) => {
+  try {
+    const User = await UserService.updateUserType(req.params.id, req.body);
     res.json(User);
   } catch (err) {
     next(err);

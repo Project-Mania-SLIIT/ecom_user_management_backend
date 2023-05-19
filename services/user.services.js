@@ -88,6 +88,15 @@ exports.getUserById = async (id) => {
   return user;
 };
 /**
+ * Get all User  service
+ * @param {String} id
+ * @returns {Promise<Object>}
+ */
+exports.getAllUser = async () => {
+	const user = await User.find();
+	return user;
+  };
+/**
  * Update User service
  * @param {String} id
  * @param {Object} updates
@@ -100,6 +109,20 @@ exports.updateUser = async (id, updates) => {
   }
   return user;
 };
+/**
+ * Update User service
+ * @param {String} id
+ * @param {Object} updates
+ * @returns {Promise<Object>}
+ */
+exports.updateUserType = async (id, updates) => {
+	const user = await User.findByIdAndUpdate(id, updates, { new: true }); 
+	if (!user) {
+	  throw new Error('User not found');
+	}
+	
+	return user;
+  };
 /**
  * Delete User service
  * @param {String} id
