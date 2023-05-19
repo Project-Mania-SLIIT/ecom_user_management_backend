@@ -1,11 +1,12 @@
 const UserService = require('../services/user.services');
-/**
+ /**
  * User application programing interface
  * @param {Request} req - http request
  * @param {Response} res - http response
  * @returns {Response}
  **/
 exports.registerUser = async (req, res, next) => {
+  console.log(req.body.formData)
   try {
     const Result = await UserService.registerUser(req.body.formData);
     if(Result.status === 200){
@@ -26,6 +27,7 @@ exports.registerUser = async (req, res, next) => {
  * @returns {Response}
  **/
 exports.authUser = async (req, res, next) => {
+  const formData = req.body.formData;
   try {
     const Result = await UserService.authUser(req.body.formData);
     if(Result.status === 200){
