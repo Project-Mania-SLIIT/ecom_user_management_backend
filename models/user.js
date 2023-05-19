@@ -9,14 +9,14 @@ const userSchema = mongoose.Schema(
 		type: {
 			type: String,
 			required: true,
-			default: 'supplier',
+			default: 'user',
 		},
-		telephone: {
+		contactNumber: {
 			type: String,
 			required: true,
             default: '0000000000',
 		},
-		homeAddress: {
+		address: {
 			type: String,
 			required: true,
             default: 'No. 0, Street, City, Country',

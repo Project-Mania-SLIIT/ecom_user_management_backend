@@ -8,8 +8,14 @@ const UserService = require('../services/user.services');
 exports.registerUser = async (req, res, next) => {
   console.log(req.body.formData)
   try {
-    const User = await UserService.registerUser(req.body.formData);
-    res.status(201).json(User);
+    const Result = await UserService.registerUser(req.body.formData);
+    if(Result.status === 200){
+      console.log(Result);  
+      res.status(200).json(Result);
+    }else{
+      console.log(Result);
+      res.status(400).json(Result.message);
+    }
   } catch (err) {
     next(err);
   }
@@ -23,8 +29,14 @@ exports.registerUser = async (req, res, next) => {
 exports.authUser = async (req, res, next) => {
   const formData = req.body.formData;
   try {
-    const Users = await UserService.authUser(formData);
-    res.json(Users);
+    const Result = await UserService.authUser(req.body.formData);
+    if(Result.status === 200){
+      console.log(Result);  
+      res.status(200).json(Result);
+    }else{
+      console.log(Result);
+      res.status(400).json(Result.message);
+    }
   } catch (err) {
     next(err);
   }
@@ -44,6 +56,20 @@ exports.getUserById = async (req, res, next) => {
   }
 };
 /**
+ * Get one User by id application programing interface
+ * @param {Request} req - http request
+ * @param {Response} res - http response
+ * @returns {Response}
+ **/
+exports.getAllUser = async (req, res, next) => {
+  try {
+    const User = await UserService.getAllUser();
+    res.json(User);
+  } catch (err) {
+    next(err);
+  }
+};
+/**
  * Update User application programing interface
  * @param {Request} req - http request
  * @param {Response} res - http response
@@ -52,6 +78,20 @@ exports.getUserById = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const User = await UserService.updateUser(req.params.id, req.body);
+    res.json(User);
+  } catch (err) {
+    next(err);
+  }
+};
+/**
+ * Update User application programing interface
+ * @param {Request} req - http request
+ * @param {Response} res - http response
+ * @returns {Response}
+ **/
+exports.updateUserType = async (req, res, next) => {
+  try {
+    const User = await UserService.updateUserType(req.params.id, req.body);
     res.json(User);
   } catch (err) {
     next(err);
